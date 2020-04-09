@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">roomCoroutines</string>
+
+    <string name="hint_word">Word...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Nothing is changed.</string>
+</resources>
