@@ -7,6 +7,6 @@ Features:
 Used:
   1.Kotlin
   2.Room
-  3.Data binding with recycler view
+  3.Data binding with recyclerview
   4.Mvvm pattern
 
