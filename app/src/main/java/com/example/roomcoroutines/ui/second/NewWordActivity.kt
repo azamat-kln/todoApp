@@ -30,7 +30,7 @@ class NewWordActivity : AppCompatActivity() {
         button_save.setOnClickListener {
             val intent = Intent()
 
-            if (TextUtils.isEmpty(edit_word.text) || TextUtils.isEmpty(description_edit_text.text)) {
+            if ((edit_word.text).isEmpty() || (description_edit_text.text).isEmpty()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 val word = edit_word.text.toString()

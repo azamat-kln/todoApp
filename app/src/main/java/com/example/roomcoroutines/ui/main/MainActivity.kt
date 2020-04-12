@@ -20,14 +20,16 @@ import com.example.roomcoroutines.recyclerview.NoteListAdapter
 import com.example.roomcoroutines.ui.second.NewWordActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
+
+private const val newNoteActivityRequestCode = 1
+private const val updateNoteActivityRequestCode = 2
 
 class MainActivity : AppCompatActivity(), ClickInterface {
 
-    private lateinit var viewModel: NoteViewModel
     private lateinit var noteListAdapter: NoteListAdapter
 
-    private val newNoteActivityRequestCode = 1
-    private val updateNoteActivityRequestCode = 2
+    private val noteViewModel by viewModel<NoteViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,7 @@ class MainActivity : AppCompatActivity(), ClickInterface {
 
         setUpRecyclerView()
 
-        val viewModelFactory = NoteViewModelFactory(application)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(NoteViewModel::class.java)
-
-        viewModel.allWords.observe(this, Observer {
+        noteViewModel.allWords.observe(this, Observer {
             it?.let {
                 noteListAdapter.setNotes(it)
             }
@@ -79,14 +78,14 @@ class MainActivity : AppCompatActivity(), ClickInterface {
     private fun updateNote(data: Intent?) {
         val changedWord: Note? = data?.getParcelableExtra(NewWordActivity.EXTRA_REPLY)
         changedWord?.let {
-            viewModel.update(it)
+            noteViewModel.update(it)
         }
     }
 
     private fun insertNote(data: Intent?) {
         val insertedWord: Note? = data?.getParcelableExtra(NewWordActivity.EXTRA_REPLY)
         insertedWord?.let {
-            viewModel.insert(it)
+            noteViewModel.insert(it)
         }
     }
 
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity(), ClickInterface {
     }
 
     override fun onSwipe(note: Note) {
-        viewModel.deleteNote(note)
+        noteViewModel.deleteNote(note)
         Snackbar.make(fab, "item deleted", Snackbar.LENGTH_SHORT)
             .show()
     }
@@ -117,7 +116,7 @@ class MainActivity : AppCompatActivity(), ClickInterface {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.clear()
+        noteViewModel.clear()
         Snackbar.make(fab, "all item deleted", Snackbar.LENGTH_SHORT)
             .show()
         return super.onOptionsItemSelected(item)

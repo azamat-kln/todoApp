@@ -56,6 +56,11 @@ dependencies {
     kapt "androidx.room:room-compiler:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    
+    //koin
+    def koin_version = '2.1.5'
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     //ui
     implementation "com.google.android.material:material:$materialVersion"

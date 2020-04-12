@@ -6,7 +6,7 @@ import com.example.roomcoroutines.db.NoteDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class Repository(private val noteDao: NoteDao) {
+class NoteRepository(private val noteDao: NoteDao) {
 
     // this query executes on a background thread
     val allWords: LiveData<List<Note>> = noteDao.getWords()
